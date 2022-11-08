@@ -1,6 +1,7 @@
 library(tidyverse)
 library(httr)
 library(rvest)
+library(data.table)
 
 getStatesLinks <- function(){
   url <- "https://www.mbi.com.br/mbi/biblioteca/simbolopedia/"
@@ -62,3 +63,4 @@ df_cities <- pmap_dfr(.l = list(state_url = states_links), .f = getCitiesLinks)
 pwalk(.l = list(city_img_link = df_cities$cities_links, file_name = df_cities$file), .f = getCityFlag)
 
 
+fwrite(df_cities,"data/df_cities.csv")
